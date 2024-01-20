@@ -1,0 +1,4 @@
+{
+	"BB_RECINFO": "BoneBox Receive Information (com.bonesnetwork.bonebox.commands.minecraft.InfoCommand)",
+	"BB_GETINFO": "BoneBox Send Get Information request (com.bonesnetwork.bonebox.commands.minecraft.InfoCommand)"
+}

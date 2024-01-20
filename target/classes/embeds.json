@@ -1,0 +1,9 @@
+{
+    "commands": {
+        "music": {
+            "play": {
+                "title": ""
+            }
+        }
+    }
+}

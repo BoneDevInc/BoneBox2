@@ -1,0 +1,42 @@
+{
+    "options": {
+        "musicEnabled": true,
+        "redisPort": 73541
+    },
+    "playQueueMusicCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    },
+    "playListMusicCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    },
+    "playFailMusicCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    },
+    "playFindntMusicCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    },
+    "joinMusicCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    },
+    "infoFailCommand": {
+        "title": "",
+        "content": "",
+        "color": "",
+        "img": ""
+    }
+}

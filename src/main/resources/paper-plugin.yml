@@ -1,0 +1,4 @@
+name: "BoneBox"
+version: "0.0.1"
+main: com.bonesnetwork.bonebox.minecraft.BoneBoxPlugin
+api-version: '1.20'

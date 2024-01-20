@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="KoreRank" />
+        <module name="KoreChat" />
+        <module name="BoneBox" />
+        <module name="Framework" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CrimsonJREFramework" target="17" />
+      <module name="KoreChat.main" target="17" />
+      <module name="KoreChat.test" target="17" />
+      <module name="KoreRank.main" target="17" />
+      <module name="KoreRank.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
