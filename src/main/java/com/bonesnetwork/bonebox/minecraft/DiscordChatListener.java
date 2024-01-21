@@ -1,6 +1,6 @@
 package com.bonesnetwork.bonebox.minecraft;
 
-import com.bonesnetwork.bonebox.minecraft.chat.BBOnlineModule;
+import com.bonesnetwork.bonebox.minecraft.chat.BBModule;
 import com.bonesnetwork.bonebox.redis.MessageHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,7 +16,7 @@ public class DiscordChatListener extends MessageHandler {
             JsonObject jo = message.getAsJsonObject();
             for (String key : Objects.requireNonNull(BoneBoxPlugin.getInstance().getConfig().getConfigurationSection("korechat.channellink")).getKeys(false)) {
                 if (jo.get("channelid").getAsString().equals(BoneBoxPlugin.getInstance().getConfig().getString("korechat.channellink."+key))) {
-                    MinecraftChatListener.sendChat(key, Component.text(jo.get("content").getAsString()), new BBOnlineModule(jo.get("username").getAsString(), jo.get("displayname").getAsString(), jo.get("userid").getAsString()));
+                    MinecraftChatListener.sendChat(key, Component.text(jo.get("content").getAsString()), new BBModule(jo.get("username").getAsString(), jo.get("displayname").getAsString(), jo.get("userid").getAsString()));
                 }
             }
             return true;
