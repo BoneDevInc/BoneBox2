@@ -4,9 +4,7 @@ import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import com.bonesnetwork.bonebox.minecraft.BoneBoxPlugin;
-import com.bonesnetwork.bonebox.redis.RedisHandler;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.bonesnetwork.bonebox.minecraft.WebhookManager;
 import net.kore.chat.event.KoreChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.event.EventHandler;
@@ -20,7 +18,12 @@ public class ChatListener implements Listener {
             return;
         }
 
-        WebhookClientBuilder builder = new WebhookClientBuilder(channel);
+        String webhook = WebhookManager.get(channel);
+        if (webhook == null) {
+            return;
+        }
+
+        WebhookClientBuilder builder = new WebhookClientBuilder(webhook);
         try (WebhookClient client = builder.build()) {
             WebhookMessageBuilder mbuilder = new WebhookMessageBuilder();
             mbuilder.setUsername(PlainTextComponentSerializer.plainText().serialize(event.getPlayer().displayName())); // use this username

@@ -9,12 +9,12 @@ public class BoneBoxHook {
             case START -> {
                 JsonObject jo = new JsonObject();
                 jo.addProperty("channel", "BB_START");
-                jo.addProperty("data", BoneBoxPlugin.getInstance().getConfig().getString("id", "unknown"));
+                jo.addProperty("data", BoneBoxPlugin.getInstance().getConfig().getString("channelid", "unknown"));
             }
             case STOP -> {
                 JsonObject jo = new JsonObject();
                 jo.addProperty("channel", "BB_STOP");
-                jo.addProperty("data", BoneBoxPlugin.getInstance().getConfig().getString("id", "unknown"));
+                jo.addProperty("data", BoneBoxPlugin.getInstance().getConfig().getString("channelid", "unknown"));
             }
         }
     }

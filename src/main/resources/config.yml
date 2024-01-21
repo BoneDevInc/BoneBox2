@@ -1,8 +1,12 @@
 id: "hub"
 channelid: "1071202946257272932"
 korechat:
+  channelids:
+    global: ""
+    staff: ""
+    executive: ""
   channellink:
-    global: "https://discord.com/api/webhooks/1198316041349124177/ZX9VVsUzGdKFJ1CGVHZVVNYR_pFVM0IbH-_C_diFQtYdbObnA754qt2s4lGcy5F3aoy3"
+    global: "1071202946257272932"
     staff: "https://discord.com/api/webhooks/1198316187436732517/SGpz1mPT85sUhCeQGDbvTT8HTatb8aJqGy_7hExzFOXdcbdsDYbTMKGvCg0WLuLBDpcz"
     executive: "https://discord.com/api/webhooks/1198316615490617406/khIm6W_iwOQCpn9KJTP1ZHv_XXhO1B68Ug3x2LxrBR6WM-0eF15PG8BEhzXJgijw4Z0A"
   discordicon: "https://mc-heads.net/avatar/%UUID%/100" # %UUID% = UUID of player
