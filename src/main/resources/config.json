@@ -1,7 +1,7 @@
 {
     "options": {
         "musicEnabled": true,
-        "redisPort": 73541
+        "redisPort": 4487
     },
     "playQueueMusicCommand": {
         "title": "",

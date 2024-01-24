@@ -34,7 +34,7 @@ public class InfoCommand extends SubCommand {
         ich.message("BB_GETINFO", jo);
         ich.blockUntilResponse(10000);
         if (element == null) {
-            event.getHook().sendMessageEmbeds(Converter.convert(BoneBox.getConfig().getInfoFailCommand())).queue();
+            //event.getHook().sendMessageEmbeds(Converter.convert(BoneBox.getConfig().getInfoFailCommand())).queue();
             return;
         }
 

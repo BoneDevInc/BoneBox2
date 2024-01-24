@@ -17,8 +17,6 @@ public class MessageListener extends ListenerAdapter {
             joo.addProperty("channelid", event.getChannel().getId());
             joo.addProperty("content", event.getMessage().getContentStripped());
             joo.addProperty("userid", event.getMember().getId());
-            joo.addProperty("username", event.getMember().getUser().getName());
-            joo.addProperty("displayname", event.getMember().getEffectiveName());
             jo.add("data", joo);
             RedisHandler.send(new Gson().toJson(jo));
         }

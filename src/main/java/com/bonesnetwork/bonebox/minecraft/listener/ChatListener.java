@@ -15,11 +15,13 @@ public class ChatListener implements Listener {
     public void handleChat(KoreChatEvent event) {
         String channel = BoneBoxPlugin.getInstance().getConfig().getString("korechat.channellink."+event.getChannel());
         if (channel == null) {
+            BoneBoxPlugin.getInstance().getLogger().warning("Chat was not sent to Discord, invalid channel");
             return;
         }
 
         String webhook = WebhookManager.get(channel);
         if (webhook == null) {
+            BoneBoxPlugin.getInstance().getLogger().warning("Invalid webhook found, could not continue sending chat to Discord.");
             return;
         }
 
@@ -30,6 +32,8 @@ public class ChatListener implements Listener {
             mbuilder.setAvatarUrl(BoneBoxPlugin.getInstance().getConfig().getString("korechat.discordicon", "https://mc-heads.net/avatar/%UUID%/100").replace("%UUID%", event.getPlayer().getUniqueId().toString())); // use this avatar
             mbuilder.setContent(PlainTextComponentSerializer.plainText().serialize(event.getMessage()));
             client.send(mbuilder.build());
+        } catch (Throwable e) {
+            BoneBoxPlugin.getInstance().getLogger().warning("Webhook failed to send. Chat message not going to Discord");
         }
     }
 }

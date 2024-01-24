@@ -9,7 +9,11 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,10 +26,13 @@ public class WebhookManager {
             con.setRequestMethod("GET");
             con.setConnectTimeout(5000);
             con.setReadTimeout(5000);
+            con.setRequestProperty("Authorization", "Bot "+BoneBoxPlugin.getInstance().getConfig().getString("token"));
+            con.setRequestProperty("Content-Type", "application/json");
             int status = con.getResponseCode();
             InputStreamReader streamReader;
 
             if (status > 299) {
+                BoneBoxPlugin.getInstance().getLogger().severe("Unable to get webhook with status " + status);
                 return null;
             } else {
                 streamReader = new InputStreamReader(con.getInputStream());
@@ -40,8 +47,7 @@ public class WebhookManager {
             in.close();
             con.disconnect();
 
-            JsonObject jo = new Gson().fromJson(content.toString(), JsonObject.class);
-            JsonArray ja = jo.getAsJsonArray();
+            JsonArray ja = new Gson().fromJson(content.toString(), JsonArray.class);
             for (JsonElement jsonElement : ja) {
                 JsonObject je = jsonElement.getAsJsonObject();
                 if (je.get("name").getAsString().equals("BoneBox" + channelid)) {
@@ -49,41 +55,29 @@ public class WebhookManager {
                 }
             }
 
-            URL urlp = new URL("https://discord.com/api/v9/channels/"+channelid+"/webhooks");
-            HttpURLConnection conp = (HttpURLConnection) urlp.openConnection();
-            conp.setRequestMethod("POST");
-            conp.setConnectTimeout(5000);
-            conp.setReadTimeout(5000);
+            HttpClient httpClient = HttpClient.newHttpClient();
 
-            Map<String, String> parameters = new HashMap<>();
-            parameters.put("name", "BoneBox"+channelid);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://discord.com/api/v9/channels/"+channelid+"/webhooks"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bot " + BoneBoxPlugin.getInstance().getConfig().getString("token"))
+                    .POST(HttpRequest.BodyPublishers.ofString("{\"name\": \"BoneBox"+channelid+"\"}"))
+                    .build();
 
-            conp.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(conp.getOutputStream());
-            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
-            out.flush();
-            out.close();
-
-            int statusp = conp.getResponseCode();
-            InputStreamReader streamReaderp;
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            int statusp = response.statusCode();
+            String contentp = response.body();
 
             if (statusp > 299) {
+                BoneBoxPlugin.getInstance().getLogger().severe("Unable to create webhook with status " + statusp);
+                BoneBoxPlugin.getInstance().getLogger().severe(contentp);
                 return null;
-            } else {
-                streamReaderp = new InputStreamReader(conp.getInputStream());
             }
 
-            BufferedReader inp = new BufferedReader(streamReaderp);
-            String inputLinep;
-            StringBuilder contentp = new StringBuilder();
-            while ((inputLinep = inp.readLine()) != null) {
-                contentp.append(inputLinep);
-            }
-            in.close();
-            con.disconnect();
-            JsonObject jop = new Gson().fromJson(contentp.toString(), JsonObject.class);
+            JsonObject jop = new Gson().fromJson(contentp, JsonObject.class);
             return jop.get("url").getAsString();
         } catch(Exception ignored) {
+            ignored.printStackTrace();
             return null;
         }
     }
